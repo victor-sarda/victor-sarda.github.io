@@ -1,3 +1,3 @@
 # victor-sarda.github.io
 
-Code source from https://victorsarda.fr/
+Source code from https://victorsarda.fr/
