@@ -1,6 +1,6 @@
 <?php
 // Configure your Subject Prefix and Recipient here
-$subjectPrefix = 'Victr.fr - ';
+$subjectPrefix = '[victorsarda.fr] - ';
 $emailTo       = 'victor.sarda@icloud.com';
 $errors = array(); // array to hold validation errors
 $data   = array(); // array to pass back data
@@ -10,16 +10,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = stripslashes(trim($_POST['subject']));
     $message = stripslashes(trim($_POST['message']));
     if (empty($name)) {
-        $errors['name'] = 'Veuillez entrer votre nom.';
+        $errors['name'] = 'Please don\'t forget the subject field :).';
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Email invalide.';
+        $errors['email'] = 'Looks like you e-mail is not valid :(.';
     }
     if (empty($subject)) {
-        $errors['subject'] = 'Veuillez entrer un sujet.';
+        $errors['subject'] = 'Please don\'t forget the subject field :).';
     }
     if (empty($message)) {
-        $errors['message'] = 'Veuillez entrer un message.';
+        $errors['message'] = 'Please don\'t forget the message field :).';
     }
     // if there are any errors in our errors array, return a success boolean or false
     if (!empty($errors)) {
@@ -28,8 +28,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $subject = "$subjectPrefix $subject";
         $body    = '
-            <strong>Nom: </strong>'.$name.'<br />
-            <strong>Email: </strong>'.$email.'<br />
+            <strong>Name: </strong>'.$name.'<br />
+            <strong>E-mail: </strong>'.$email.'<br />
             <strong>Message: </strong>'.nl2br($message).'<br />
         ';
         $headers  = "MIME-Version: 1.1" . PHP_EOL;
@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $headers .= "X-Originating-IP: " . $_SERVER['51.254.203.219'] . PHP_EOL;
         mail($emailTo, "=?utf-8?B?" . base64_encode($subject) . "?=", $body, $headers);
         $data['success'] = true;
-        $data['message'] = 'Merci, votre message à bien été envoyé! Je vous répondrai dans les plus brefs délais';
+        $data['message'] = 'Thank you! Your message has been sent, I will answer quickly.';
     }
     // return all our data to an AJAX call
     echo json_encode($data);
